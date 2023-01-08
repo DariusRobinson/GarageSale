@@ -7,7 +7,7 @@ const Register = () => {
     let username = event.target.username.value;
     let password = event.target.password.value;
     await registerUser(username, password);
-    
+
   }
   return (
     <>
@@ -30,7 +30,7 @@ const Register = () => {
             required
           />
         </fieldset>
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </>
   );
