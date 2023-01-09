@@ -1,14 +1,18 @@
 import React from "react";
 import { loginUser } from "../api";
+import { storeToken } from "../auth";
 
-const Login = () => {
+const Login = ({token, setToken}) => {
 async function handleSubmit(event){
     event.preventDefault();
     let username = event.target.username.value
     let password = event.target.password.value
     console.log(username,'username')
     console.log(password,'password')
-    await loginUser(username, password)
+  let userToken = await loginUser(username, password)
+    storeToken(userToken)
+    setToken(userToken)
+
 
 }
 
@@ -32,7 +36,7 @@ async function handleSubmit(event){
             required
             />
             </fieldset>
-            <button type="submit">Login</button>
+            <button className="submitBtn" type="submit">Login</button>
         </form>
     )
 }

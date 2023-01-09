@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import { registerUser } from "../api";
+import { storeToken } from "../auth";
 
-const Register = () => {
+const Register = ({token, setToken}) => {
   async function handleSubmit(event) {
     event.preventDefault();
     let username = event.target.username.value;
     let password = event.target.password.value;
-    await registerUser(username, password);
+   const userToken =  await registerUser(username, password);
+   setToken(userToken);
+  storeToken(userToken);
+  
 
   }
   return (
@@ -30,7 +34,7 @@ const Register = () => {
             required
           />
         </fieldset>
-        <button type="submit">Submit</button>
+        <button className="submitBtn" type="submit">Register</button>
       </form>
     </>
   );
