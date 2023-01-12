@@ -82,3 +82,28 @@ export const GetPosts = async (token) => {
     console.error("Error getting all posts", error);
   }
 };
+
+export const createNewPost = async ( token, title, description, price, willDeliver ) => {
+  try {
+    const respose = await fetch(`${APIURL}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        post: {
+          title,
+          description,
+          price,
+          willDeliver
+        },
+      }),
+    });
+    const result = await respose.json();
+    console.log("result from creating new post", result)
+    return result
+  }catch(error){
+    console.error("error creating new post", error)
+  }
+}
