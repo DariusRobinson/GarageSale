@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Register, Login, Profile, Posts } from "./";
+import { Register, Login, Profile, Posts, CreatePost } from "./";
 
 const App = () => {
   const [token, setToken] = useState(
@@ -27,6 +27,7 @@ const App = () => {
 <Route
           path="/posts"
           element={<Posts token={token} setToken={setToken} />}
+          
         />
       </Routes>
     </Router>
