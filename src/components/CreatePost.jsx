@@ -2,24 +2,20 @@ import React, { useState } from "react";
 import { createNewPost } from "../api";
 import { grabToken } from "../auth";
 
-const CreatePost = ({ token, setToken, canCreate, setCanCreate }) => {
-  
-  const handleSubmit= async (event) => {
-    event.preventDefault();
-    const newToken = grabToken();
-    token = newToken;
-    const data = event.target;
+const CreatePost = ({
+  token,
+  setToken,
+  canCreate,
+  setCanCreate,
+  allPost,
+  setAllPost,
+}) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [willDeliver, setWillDeliver] = useState(false);
+  const theToken = grabToken(token);
 
-    const title = data.title.value;
-    console.log("this should be the correcet response", title);
-    const description = data.description.value;
-    const price = data.price.value;
-    const willDeliver = data.willDeliver.value;
-    const postObj = { title, description, price, willDeliver };
-
-    // const response = await createNewPost(token, { postObj });
-    
-  };
   const click = async (event) => {
     event.preventDefault();
     setCanCreate(false);
@@ -27,7 +23,20 @@ const CreatePost = ({ token, setToken, canCreate, setCanCreate }) => {
 
   return (
     <div>
-      <form>
+      <form
+        onSubmit={async (event) => {
+          event.preventDefault();
+          const postObj = {
+            title: title,
+            description: description,
+            price: price,
+            willDeliver: willDeliver,
+          }
+          await createNewPost(postObj, theToken);
+          setCanCreate(false);
+          window.location.reload();
+        }}
+      >
         <fieldset>
           <input
             className="createPostInput"
@@ -35,6 +44,11 @@ const CreatePost = ({ token, setToken, canCreate, setCanCreate }) => {
             name="title"
             type="text"
             required
+            value={title}
+            onChange={(event) => {
+              event.preventDefault();
+              setTitle(event.target.value);
+            }}
           />
         </fieldset>
         <fieldset>
@@ -44,6 +58,12 @@ const CreatePost = ({ token, setToken, canCreate, setCanCreate }) => {
             name="description"
             type="text"
             required
+            value={description}
+            onChange={(event) => {
+              event.preventDefault();
+              setDescription(event.target.value);
+              console.log(description);
+            }}
           />
         </fieldset>
         <fieldset>
@@ -53,6 +73,12 @@ const CreatePost = ({ token, setToken, canCreate, setCanCreate }) => {
             name="price"
             type="number"
             required
+            value={price}
+            onChange={(event) => {
+              event.preventDefault();
+              setPrice(event.target.value);
+              console.log(price);
+            }}
           />
         </fieldset>
         <fieldset>
@@ -63,11 +89,13 @@ const CreatePost = ({ token, setToken, canCreate, setCanCreate }) => {
               placeholder="Will Deliver"
               name="checkbox"
               type="checkbox"
-              required
+              onChange={(event) => {
+                setWillDeliver(!willDeliver);
+              }}
             />
           </label>
         </fieldset>
-        <button className="createPostSubmit" onSubmit={handleSubmit}>
+        <button className="createPostSubmit" type="submit">
           Create
         </button>
         <button className="cancelBtn" onClick={click}>

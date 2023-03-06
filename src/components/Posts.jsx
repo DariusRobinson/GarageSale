@@ -32,7 +32,7 @@ const Posts = ({ token, setToken }) => {
       </button>
       {canCreate} ?{" "}
       <>
-        <CreatePost />{" "}
+        <CreatePost allPost={allPost} setAllPosts={setAllPosts} />{" "}
       </>
       : <></>
       <>
