@@ -24,10 +24,9 @@ const App = () => {
           element={<Profile token={token} setToken={setToken} />}
         />
 
-<Route
+        <Route
           path="/posts"
           element={<Posts token={token} setToken={setToken} />}
-          
         />
       </Routes>
     </Router>

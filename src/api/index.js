@@ -96,7 +96,22 @@ export const createNewPost = async (posts, token) => {
       }),
     });
     const result = await response.json();
-    console.log("result ??", result)
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const myData = async (token) => {
+  try {
+    const response = await fetch(`${APIURL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log("result from profile api function", result);
   } catch (error) {
     console.error(error);
   }

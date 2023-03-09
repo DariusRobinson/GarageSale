@@ -14,7 +14,7 @@ const CreatePost = ({
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [willDeliver, setWillDeliver] = useState(false);
-  const theToken = grabToken(token);
+   const theToken = grabToken(token);
 
   const click = async (event) => {
     event.preventDefault();
@@ -34,7 +34,7 @@ const CreatePost = ({
           }
           await createNewPost(postObj, theToken);
           setCanCreate(false);
-          window.location.reload();
+          window.reload();
         }}
       >
         <fieldset>
