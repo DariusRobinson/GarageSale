@@ -13,16 +13,17 @@ const Posts = ({ token, setToken }) => {
     return response.data.posts;
   };
 
-  useEffect((token) => {
-    fetchAllPost(token);
-  }, []);
+  useEffect(
+    (token) => {
+      fetchAllPost(token);
+    },
+    [canCreate]
+  );
   const newToken = grabToken();
   setToken(newToken);
 
-
   return (
     <div>
-      
       <button
         onClick={() => {
           setCanCreate(true);
@@ -30,9 +31,13 @@ const Posts = ({ token, setToken }) => {
       >
         Create New Post
       </button>
-      {canCreate} ?{" "}
+      {canCreate} ?
       <>
-        <CreatePost allPost={allPost} setAllPosts={setAllPosts} />{" "}
+        <CreatePost
+          allPost={allPost}
+          setAllPosts={setAllPosts}
+          setCanCreate={setCanCreate}
+        />
       </>
       : <></>
       <>

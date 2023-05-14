@@ -36,22 +36,48 @@ const CreatePost = ({
           const response = await createNewPost(postObj, theToken);
           console.log("response", response);
 
+          // const response = await createNewPost(postObj, theToken);
+          // setAllPost((prevState) => [...prevState, response.data.post]);
+
           let newPost = [...allPost];
-          newPost.splice(0, 0, response.data.post);
+          newPost.push(response.data.post);
+          let finalPost = [...newPost];
           console.log("old", allPost);
           console.log("new", newPost);
-          setAllPost(newPost);
+          setAllPost(finalPost); // update the state variable and trigger a rerender
 
-          // newPost.forEach((singlePost) => {
-          //   if (singlePost._id === response._id) {
-          //     let finalPost = newPost.Push(singlePost);
-
-          //     setAllPost(newPost);
-          //   }
-          // });
-          // console.log(allPost);
           setCanCreate(false);
         }}
+
+        // onSubmit={async (event) => {
+        //   event.preventDefault();
+        //   const postObj = {
+        //     title: title,
+        //     description: description,
+        //     price: price,
+        //     willDeliver: willDeliver,
+        //   };
+
+        //   const response = await createNewPost(postObj, theToken);
+        //   console.log("response", response);
+
+        //   let newPost = [...allPost];
+        //   newPost.push(response.data.post);
+        //   let finalPost = [...newPost];
+        //   console.log("old", allPost);
+        //   console.log("new", newPost);
+        //   setAllPost(finalPost);
+
+        //   // newPost.forEach((singlePost) => {
+        //   //   if (singlePost._id === response._id) {
+        //   //     let finalPost = newPost.Push(singlePost);
+
+        //   //     setAllPost(newPost);
+        //   //   }
+        //   // });
+        //   // console.log(allPost);
+        //   setCanCreate(false);
+        // }}
       >
         <fieldset>
           <input
