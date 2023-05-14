@@ -14,7 +14,7 @@ const CreatePost = ({
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [willDeliver, setWillDeliver] = useState(false);
-   const theToken = grabToken(token);
+  const theToken = grabToken(token);
 
   const click = async (event) => {
     event.preventDefault();
@@ -31,10 +31,26 @@ const CreatePost = ({
             description: description,
             price: price,
             willDeliver: willDeliver,
-          }
-          await createNewPost(postObj, theToken);
+          };
+
+          const response = await createNewPost(postObj, theToken);
+          console.log("response", response);
+
+          let newPost = [...allPost];
+          newPost.splice(0, 0, response.data.post);
+          console.log("old", allPost);
+          console.log("new", newPost);
+          setAllPost(newPost);
+
+          // newPost.forEach((singlePost) => {
+          //   if (singlePost._id === response._id) {
+          //     let finalPost = newPost.Push(singlePost);
+
+          //     setAllPost(newPost);
+          //   }
+          // });
+          // console.log(allPost);
           setCanCreate(false);
-          window.reload();
         }}
       >
         <fieldset>
